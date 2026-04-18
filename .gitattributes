@@ -1,2 +1,2 @@
-# ignore Latex language for linguist
-*.tex linguist-language=TeX
+# dont show latex files as code
+*.tex linguist-vendor
