@@ -1,2 +1,1 @@
-# dont show latex files as code
-*.tex linguist-vendor
+paper/* linguist-vendored
