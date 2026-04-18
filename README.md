@@ -4,12 +4,14 @@ Neural network architectures using polynomial activation functions can be analyz
 
 ## Usage
 
-To run the scripts, first install Macaulay2 and its dependencies, then:
+To run the scripts:
 
 ```bash
 cd script
 M2 --script <actv>_<r>_<d>_<monOrder>.m2
 ```
+
+M2 can be installed from [here](https://macaulay2.com/Downloads/).
 
 ## Contributing
 
