@@ -19,10 +19,10 @@ To apply the framework to other architectures, run:
 
 ```bash
 cd src
-M2 --eval_ideal.m2 <n=2> <r=2> <d=2> <TermOrder="Grevlex">
+M2 --script eval_ideal.m2 [n] [r] [d]
 cd ../
 ```
-where `n` is the input dimension, `r` is the rank (number of neurons), and `d` is the degree of the activation function in $\sigma(z) = z^d$. You can also specify a term order using `TermOrder => <order>`. All parameters are optional.
+where `n` is the input dimension (default = 2), `r` is the rank or number of neurons (default = 2), and `d` is the degree of the activation function in $\sigma(z) = z^d$ (default = 2). The default term order used is Lexicographic order, you can also specify a term order using `TermOrder => <order>` inside the script. All parameters are optional.
 
 ## Contributing
 
