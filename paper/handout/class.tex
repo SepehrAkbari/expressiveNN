@@ -1,3 +1,181 @@
+\documentclass[12pt]{amsproc}
+\usepackage[left=1in, right=1in, top=1in, bottom=1in]{geometry}
+\usepackage[authoryear]{natbib} 
+\usepackage{amsmath,amsthm,amsfonts,amssymb}
+\usepackage[T1]{fontenc}
+\usepackage{mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[colorlinks=true,citecolor=blue,urlcolor=blue, linkcolor=blue]{hyperref}
+\usepackage{blkarray}
+\usepackage{tikz,tikz-cd}
+\usepackage[noabbrev]{cleveref}
+\usepackage{bbm}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{commath}
+\usetikzlibrary{chains,matrix,scopes,fit,decorations,positioning,shapes,arrows,decorations.markings}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1.tif`.png}
+\setcounter{MaxMatrixCols}{20}
+
+\usepackage{subcaption}
+\usepackage{graphicx}
+
+\newcommand\cA{\mathcal{A}}
+\newcommand\cB{\mathcal{B}}
+\newcommand\C{\mathbb{C}}
+\newcommand\cD{\mathcal{D}}
+\newcommand\D{\mathrm{D}}
+\newcommand\cE{\mathcal{E}}
+\newcommand\cN{\mathcal{N}}
+\newcommand\cH{\mathcal{H}}
+\newcommand\cK{\mathcal{K}}
+\newcommand\cM{\mathcal{M}}
+\newcommand\cF{\mathcal{F}}
+\newcommand\cI{\mathcal{I}}
+\newcommand\cJ{\mathcal{J}}
+\newcommand\cS{\mathcal{S}}
+\newcommand\cT{\mathcal{T}}
+\newcommand\cL{\mathcal{L}}
+\newcommand\cP{\mathcal{P}}
+\newcommand\X{\mathbf{X}}
+\newcommand\cZ{\mathcal{Z}}
+\newcommand\cO{\mathcal{O}}
+\newcommand\imu{\mathbf{i}}
+\newcommand\codim{\operatorname{codim}}
+\newcommand\rO{\mathrm{O}}
+\newcommand\rSO{\mathrm{SO}}
+\newcommand\rSP{\mathrm{SP}}
+\newcommand\T{\mathcal{T}}
+\newcommand\Q{\mathbf{Q}}
+\newcommand\bP{\mathbf{P}}
+\newcommand\bR{\mathbf{R}}
+\newcommand\ba{\mathbf{a}}
+\newcommand\bi{\mathbf{i}}
+\newcommand\bj{\mathbf{j}}
+\newcommand\s{\mathbf{s}}
+\newcommand\bt{\mathbf{t}}
+\newcommand\x{\mathbf{x}}
+\newcommand\y{\mathbf{y}}
+\newcommand\z{\mathbf{z}}
+\newcommand\ri{\mathrm{i}}
+\newcommand\sym{\mathrm{sym}}
+\newcommand\rank{\mathrm{rank}}
+\newcommand\dist{\mathrm{dist}}
+\newcommand\pmi{\mathrm{pmi}}
+\newcommand\mi{\mathrm{mi}}
+
+\definecolor{DarkGreen}{rgb}{0.0, 0.5, 0.0}
+
+\newcommand\ve{\varepsilon}
+\newcommand\bs{\boldsymbol}
+\newcommand\E{\mathbb{E}}
+\renewcommand\P{\mathbb{P}}
+\renewcommand{\-}{\setminus}
+\newcommand\R{\mathbb{R}}
+\newcommand\cV{\mathcal{V}}
+\newcommand\Sym{\mathrm{Sym}}
+\newcommand\<{\langle}
+\renewcommand\>{\rangle}
+\newcommand\off{\rm off}
+
+\newcommand{\floor}[1]{\lfloor#1 \rfloor}
+\newcommand\independent{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+
+\newcommand{\Input}{\State\textbf{input} }
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+\DeclareMathOperator\Tr{Tr\,}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\diff}{d}
+\DeclareMathOperator{\arr}{vec}
+\DeclareMathOperator{\arrh}{vech}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Pa}{Pa}
+\DeclareMathOperator{\Ch}{Ch}
+\DeclareMathOperator{\De}{De}
+\DeclareMathOperator{\NDe}{ND}
+\DeclareMathOperator{\CIS}{CIS}
+\DeclareMathOperator{\MTP}{MTP}
+\DeclareMathOperator{\PA}{PA}
+\DeclareMathOperator{\Res}{Res}
+
+\theoremstyle{plain}
+\newtheorem{thm}{thm}[section]
+\newtheorem{theorem}[thm]{Theorem}
+\newtheorem{proposition}[thm]{Proposition}
+\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{corollary}[thm]{Corollary}
+\newtheorem{conjecture}[thm]{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{definition}[thm]{Definition}
+\newtheorem{example}[thm]{Example}
+\newtheorem{assumption}[thm]{Assumption}
+
+\theoremstyle{remark}
+\newtheorem{remark}[thm]{Remark}
+
+\AddToHook{env/theorem/begin}{\crefalias{thm}{theorem}}
+\AddToHook{env/proposition/begin}{\crefalias{thm}{proposition}}
+\AddToHook{env/lemma/begin}{\crefalias{thm}{lemma}}
+\AddToHook{env/corollary/begin}{\crefalias{thm}{corollary}}
+\AddToHook{env/conjecture/begin}{\crefalias{thm}{conjecture}}
+\AddToHook{env/definition/begin}{\crefalias{thm}{definition}}
+\AddToHook{env/example/begin}{\crefalias{thm}{example}}
+\AddToHook{env/assumption/begin}{\crefalias{thm}{assumption}}
+\AddToHook{env/remark/begin}{\crefalias{thm}{remark}}
+
+\crefname{thm}{theorem}{theorems}
+\Crefname{thm}{Theorem}{Theorems}
+\crefname{theorem}{theorem}{theorems}
+\Crefname{theorem}{Theorem}{Theorems}
+\crefname{proposition}{proposition}{propositions}
+\Crefname{proposition}{Proposition}{Propositions}
+\crefname{lemma}{lemma}{lemmas}
+\Crefname{lemma}{Lemma}{Lemmas}
+\crefname{corollary}{corollary}{corollaries}
+\Crefname{corollary}{Corollary}{Corollaries}
+\crefname{conjecture}{conjecture}{conjectures}
+\Crefname{conjecture}{Conjecture}{Conjectures}
+\crefname{definition}{definition}{definitions}
+\Crefname{definition}{Definition}{Definitions}
+\crefname{example}{example}{examples}
+\Crefname{example}{Example}{Examples}
+\crefname{assumption}{assumption}{assumptions}
+\Crefname{assumption}{Assumption}{Assumptions}
+\crefname{remark}{remark}{remarks}
+\Crefname{remark}{Remark}{Remarks}
+
+\AtBeginDocument{
+  \setlength{\belowdisplayskip}{10pt}
+  \setlength{\belowdisplayshortskip}{10pt}
+
+  \setlength{\abovedisplayskip}{10pt}
+  \setlength{\abovedisplayshortskip}{10pt}
+}
+\setlength{\parskip}{0.5em}
+
+\setcounter{totalnumber}{10}
+
+\title[Expressivity of Neural Networks]{Limitations in Algebraic Expressivity of \\Quadratic Neural Networks}
+
+\author{Sepehr Akbari}
+\address{Sepehr Akbari, Lake Forest College}
+\email{akbaris79@lakeforest.edu}
+
+\begin{document}
+
+\begin{abstract}
+The expressivity of artificial neural networks is classically studied through approximation theory, which provides asymptotic guarantees but obscures the exact algebraic boundaries of finite architectures. Motivated by the adoption of polynomial activation functions in niche aspects of machine learning, we reframe neural network expressivity as a problem in algebraic geometry. By restricting activations to quadratic forms, the network's parameterized function space maps to a secant variety of a Veronese embedding. We apply elimination theory to explicitly derive the implicit vanishing ideal for an example architecture. Our results demonstrate both the existence of universally expressive architectures and also precise algebraic limitations for others. This algebraic framework provides an exact certificate of learning capabilities, independent of training data or optimization heuristics.
+\end{abstract}
+
+\maketitle
+
 \section{Motivation}
 
 Most artificial neural networks rely on piecewise linear or transcendental activation functions, such as the Rectified Linear Unit (ReLU) or the sigmoid function. While these functions are effective for standard training, they make it difficult to exactly define the mathematical boundary of what a given network architecture can or cannot learn. 
@@ -104,3 +282,18 @@ The width of the hidden layer, $r$, acts as a hard upper bound on the symmetric 
 Despite the power of this geometric perspective, scaling this analysis to deep or highly wide architectures presents a computational challenge. The implicitization process relies heavily on computing Gröbner bases via Buchberger's algorithm, which is bounded by doubly exponential worst-case complexity. As the dimension of the input space or the width of the network increases, the number of polynomial variables grows, and exact elimination quickly becomes computationally intractable using standard implementations. Luckily, the structure of the parameterization equations often contains symmetries and redundancies that can be exploited to optimize the elimination process, and given the nature of Buchberger's algorithm, these optimizations along with other domain specific heuristic strategies can significantly reduce the practical runtime for many architectures of interest \cite{cox2015IVA}.
 
 Beyond other architectural variations, such as deeper networks or different polynomial activation functions, future work could also explore the impact of regularization techniques on the algebraic structure of the function space. For instance, adding an $\ell_2$ penalty on the weights would introduce additional polynomial constraints into the graph ideal, potentially altering the implicit ideal and thus the expressivity of the network. This further emphasizes the importance of an algebraic perspective, as it allows us to understand how different design choices interact with the fundamental geometry of the network's function space, providing a more holistic view of model capabilities and limitations.
+
+\bibliographystyle{alpha}
+\bibliography{biblio}
+
+\markboth{APPENDIX}{APPENDIX}
+\appendix
+\section{Computation}
+
+Algorithm \ref{alg1} was implemented in \texttt{Macaulay2}. The scripts are available at 
+
+\qquad \url{https://github.com/SepehrAkbari/expressiveNN.git}.
+
+\vspace{2em}
+
+\end{document}

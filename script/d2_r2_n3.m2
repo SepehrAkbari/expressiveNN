@@ -1,3 +1,8 @@
+----------
+-- Expressivity of quadratic rank-2 3D networks.
+----------
+
+
 R = QQ[v_11, v_12, v_13, v_21, v_22, v_23, c_200, c_020, c_002, c_110, c_101, c_011]
 
 J = ideal(
