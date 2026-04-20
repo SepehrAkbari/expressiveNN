@@ -12,15 +12,15 @@ Instead of relying on empirical testing to see what functions the network can ap
 
 \section{Algebraic Formulation}
 
-To analyze the neural network algebraically, we must translate its forward pass into a formal system of polynomial equations. We achieve this by defining the mathematical spaces where the network's weights and its output functions reside, and then establishing the exact mapping between them. 
+To analyze the neural network algebraically, we must translate its forward pass into a formal system of polynomial equations. We achieve this by defining the mathematical spaces where the network's weights and its output functions reside, and then establishing the mapping between them. 
 
-Consider a feedforward network with an input vector $x = (x_1, \dots, x_n) \in \mathbb{C}^n$, a single hidden layer of width $r$, and a quadratic activation function $\sigma(z) = z^2$. We choose to operate over the complex field $\mathbb{C}$ because algebraically closed fields possess highly regular geometric properties, though the resulting structural constraints remain deeply relevant for networks trained over the real numbers. 
+Consider a feedforward network with an input vector $x = (x_1, \dots, x_n) \in \mathbb{C}^n$, a single hidden layer of width $r$, and a quadratic activation function $\sigma(z) = z^2$. We choose to operate over the complex field $\mathbb{C}$ because algebraically closed fields possess highly regular geometric properties, though the resulting structural constraints remain relevant for networks trained over the real numbers. 
 
 The function computed by the network
 \[
 f(x) = \sum_{i=1}^r a_i \left( \sum_{j=1}^n w_{ij} x_j \right)^2
 \]
-where $w_{ij}$ is the weight connecting the $j$-th input to the $i$-th hidden neuron, and $a_i$ is the output weight of that neuron. Because we are working over $\mathbb{C}$, we can cleanly simplify this architecture without altering the space of functions it can represent. By taking the principal square root of each output weight, we can define a new, absorbed weight vector $v_i$ for each neuron, where $v_{ij} = \sqrt{a_i} w_{ij}$. The network's output can then be rewritten purely as a sum of squared linear forms:
+where $w_{ij}$ is the weight connecting the $j$-th input to the $i$-th hidden neuron, and $a_i$ is the output weight of that neuron. Because we are working over $\mathbb{C}$, we can easily simplify this architecture without altering the space of functions it can represent. By taking the principal square root of each output weight, we can define a new, absorbed weight vector $v_i$ for each neuron, where $v_{ij} = \sqrt{a_i} w_{ij}$. The network's output can then be rewritten purely as a sum of squared linear forms:
 \[
 f(x) = \sum_{i=1}^r \langle v_i, x \rangle^2 = \sum_{i=1}^r \left( v_{i1}x_1 + \dots + v_{in}x_n \right)^2
 \]
@@ -47,7 +47,7 @@ Within this ring, the relationship between the network's parameters and its outp
 J = \langle c_\alpha - p_\alpha(v) : \; \abs{\alpha}=2 \rangle \subseteq \mathbb{C}[v, c]
 \]
 
-The graph ideal $J$ perfectly encodes the constraints of the forward pass of the neural network. The remaining task, which we address in the following sections, is to systematically eliminate the weight variables $v$ from this ideal, leaving behind only the pure algebraic relationships between the function coefficients $c_\alpha$.
+The graph ideal $J$  encodes the constraints of the forward pass of the neural network. The remaining task, which we address in the following sections, is to systematically eliminate the weight variables $v$ from this ideal, leaving behind only the pure algebraic relationships between the function coefficients $c_\alpha$.
 
 \section{Rank-Two Implicitization}
 
@@ -57,7 +57,7 @@ Consider first a minimal network processing a two-dimensional input $x = (x_1, x
 
 However, scaling the input dimension by just one variable entirely changes the geometric reality of the network. Consider the exact same width $r=2$ architecture, but now processing a three-dimensional input $x = (x_1, x_2, x_3)$. The target function space $S_2(\mathbb{C}^3)$ expands to a dimension of six, represented by the generic polynomial
 \[
-P(x) = c_{200}x_1^2 + c_{020}x_2^2 + c_{002}x_3^2 + c_{110}x_1x_2 + c_{101}x_1x_3 + c_{011}x_2x_3
+P(x) = c_{200}x_1^2 + c_{020}x_2^2 + c_{002}x_3^2 + c_{110}x_1x_2 + c_{101}x_1x_3 + c_{011}x_2x_3.
 \]
 The network is now parameterized by six absorbed weights (a $2 \times 3$ matrix $V$). Although the number of parameters matches the dimension of the target space, the algebraic structure prevents the network from learning every function. The forward pass yields the explicit parameterization equations:
 \begin{align*}
@@ -69,7 +69,7 @@ c_{101} &= 2(v_{11}v_{13} + v_{21}v_{23}) \\
 c_{011} &= 2(v_{12}v_{13} + v_{22}v_{23})
 \end{align*}
 
-To find the precise algebraic boundary of the functions this 3D network can express, we must eliminate the six weight variables $v_{ij}$. We construct the graph ideal $J$ within the polynomial ring $\mathbb{C}[v, c]$ generated by the differences between the coefficients $c_\alpha$ and their respective equations above. We algorithmically derive the implicit ideal using the standard elimination protocol outlined below.
+To find the precise algebraic boundary of the functions this 3D network can express, we must eliminate the six weight variables $v_{ij}$. We construct the graph ideal $J$ within the polynomial ring $\mathbb{C}[v, c]$ generated by the differences between the coefficients $c_\alpha$ and their respective equations above. We algorithmically derive the implicit ideal using the standard elimination protocol, rooted in the third chapter of \cite{cox2015IVA}, outlined below.
 
 \begin{algorithm}
 \caption{Implicitization via Gröbner Basis Elimination}
@@ -95,7 +95,7 @@ Therefore, this architecture structurally cannot learn any function that corresp
 
 \section{Discussion}
 
-The application of elimination theory to polynomial neural networks reveals a fundamental difference between algebraic expressivity and analytic approximation. In standard machine learning, the UAT provides an asymptotic guarantee of expressivity as the network width approaches infinity. However, practical networks operate with finite, fixed widths. By translating the network architecture into a parameterized algebraic variety, we obtain exact, invariant constraints on what a finite network can learn.
+The application of elimination theory to polynomial neural networks reveals a fundamental difference between algebraic expressivity and analytic approximation. In standard machine learning, the UAT provides an asymptotic guarantee of expressivity as the network width approaches infinity. However, practical networks obviously operate with finite, fixed widths. By translating the network architecture into a parameterized algebraic variety, we obtain exact, invariant constraints on what a finite network can learn.
 
 For the rank-two, 3D quadratic network analyzed, the implicitization computation produced a single constraint forcing the determinant of the target function's coefficient matrix to be zero. This algebraic invariant has immediate, practical implications for model training. If an engineer attempts to train this specific architecture to approximate a full-rank target function, empirical risk minimization will structurally fail. During training, gradient descent algorithms will navigate the parameter space, effectively projecting the target function onto the nearest point within the secant variety. Because the full-rank target lies strictly outside the vanishing ideal of the network, the loss landscape will have a non-zero global minimum. The network is bottlenecked not by poor initialization or learning rates, but rather by the geometry of its tensor decomposition. 
 
