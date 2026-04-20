@@ -18,5 +18,11 @@
 %OUTDIR%
 handout
 
+paper/*
+!paper/class.tex
+!paper/class_biblio.tex
+!paper/class.pdf
+
 paper/content
 !paper/content/class_*.tex
+
