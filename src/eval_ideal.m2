@@ -22,10 +22,8 @@ if #args >= 1 then paramN = value(args#0)
 if #args >= 2 then paramR = value(args#1)
 if #args >= 3 then paramD = value(args#2)
 
-print("n: " | toString(paramN) | ", r: " | toString(paramR) | ", d: " | toString(paramD))
-print("")
+-- print("n: " | toString(paramN) | ", r: " | toString(paramR) | ", d: " | toString(paramD))
+-- print("")
 
 I = build_ideal(paramN, paramR, paramD, TermOrder => Lex)
-
-print("Generators:")
-print gens I
+<< "Generators: " << gens I << endl
