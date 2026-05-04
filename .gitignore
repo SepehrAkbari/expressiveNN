@@ -26,3 +26,4 @@ paper/*
 paper/content
 !paper/content/class_*.tex
 
+siuro_article

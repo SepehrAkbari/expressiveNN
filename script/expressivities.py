@@ -7,16 +7,16 @@ import subprocess
 import time
 
 
-TIMEOUT = 120 # in seconds
-N_VALS = [2, 3, 4, 5, 6, 7, 8, 9, 10]
-R_VALS = [2, 3, 4]
-D_VALS = [2, 3, 3, 4, 5]
+TIMEOUT = 3600 # in seconds
+N_VALS = [2, 3, 4, 5, 6]
+R_VALS = [2, 3, 4, 5, 6]
+D_VALS = [2, 3, 4, 5]
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 SRC_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, '..', 'src'))
 OUT_DIR = os.path.join(SCRIPT_DIR, 'out')
 os.makedirs(OUT_DIR, exist_ok=True)
-LOG_FILE = os.path.join(OUT_DIR, "expressivities.txt")
+LOG_FILE = os.path.join(OUT_DIR, f"expressivities_{TIMEOUT}.txt")
 
 print(f"{'n':<3} | {'r':<3} | {'d':<3} | {'Status':<12} | {'Time (s)'}")
 print("-" * 50)
